@@ -1,5 +1,5 @@
 # dotfiles
-
+```
 $ git clone git@github.com:matthiase/dotfiles.git
 $ cd dotfiles
 $ ./init.sh
