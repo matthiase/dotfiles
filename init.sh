@@ -58,10 +58,17 @@ done
 
 if [ ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]; then
   git clone --recursive https://github.com/matthiase/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/!(README.md); do
-   ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-  done
 fi
+
+for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/!(README.md); do
+  dest="${ZDOTDIR:-$HOME}/.$(basename $rcfile)"
+  if [ ! -e $dest ]; then
+    echo "Linking $dest"
+    ln -s "$rcfile" "${ZDOTDIR:-$dest}"
+  else
+    echo "Not linking '$dest' because file already exists."
+  fi
+done
 
 if [ -z "`$SHELL -c 'echo $ZSH_VERSION'`" ]; then
   chsh -s /bin/zsh
@@ -69,7 +76,7 @@ fi
 
 rsync --exclude ".git/" \
   --exclude ".DS_Store" \
-  --exclude "setup.sh" \
+  --exclude "init.sh" \
   --exclude "README.md" \
   --exclude "LICENSE" \
   --exclude "colors" \
