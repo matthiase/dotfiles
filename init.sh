@@ -36,25 +36,31 @@ for formula in zsh \
   tree \
   ssh-copy-id ;
 do
-	echo "Checking formula '$formula'"
+  echo "Checking formula '$formula'"
   brew ls --versions $formula > /dev/null 2>&1
   if [[ $? != 0 ]] ; then
     brew install $formula
   fi
 done
 
+brew tap caskroom/fonts > /dev/null 2>&1
 casks=("font-hack-nerd-font")
-if [ -d /Applications/iTerm.appx ] ; then
+if [ ! -d /Applications/iTerm.app ] ; then
   casks+=(iterm2)
 fi
 
 for cask in "${casks[@]}" ; do
-	echo "Checking cask '$cask'"
+  echo "Checking cask '$cask'"
   brew cask ls --versions $cask > /dev/null 2>&1
   if [[ $? != 0 ]] ; then
-		brew cask install $cask
+    brew cask install $cask
   fi
 done
+
+if [ ! -e $HOME/.local/share/nvim/site/autoload/plug.vim ]; then
+  curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
 
 if [ ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]; then
   git clone --recursive https://github.com/matthiase/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
