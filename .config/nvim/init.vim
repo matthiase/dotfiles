@@ -9,7 +9,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'kshenoy/vim-signature'
 Plug 'sheerun/vim-polyglot'
-Plug 'mattn/emmet-vim', { 'for': ['javascript.jsx', 'html', 'css'] }
+Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
 Plug 'bling/vim-airline'
@@ -44,6 +44,14 @@ set background=dark               " set background color
 set shortmess=I                   " disable startup message
 set ttyfast                       " enable fast terminal connection
 set lazyredraw                    " speed optimization
+set history=9999                  " increase history size
+set backspace=indent,eol,start    " Allows the backspace to delete indenting
+if has('persistent_undo')         " Turn on persistent undo
+  set undofile
+  set undolevels=1000
+  set undoreload=10000
+end
+set clipboard+=unnamedplus        " send clipboard operations to the '*' register
 
 let mapleader = ","
 "map <Leader>\ :NERDTreeToggle<CR>
