@@ -14,6 +14,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'drewtempelmeyer/palenight.vim'
 Plug 'morhetz/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'w0rp/ale'
@@ -55,9 +56,9 @@ nmap <space><space> :nohlsearch<CR>
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePre :set expandtab<CR> :retab<CR>
 
-colorscheme gruvbox
 syntax on
 syntax enable
+colorscheme palenight
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -67,7 +68,7 @@ let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tmuxline#enabled = 0
 let g:airline#extensions#ale#enabled = 0
-let g:airline_theme="gruvbox"
+let g:airline_theme="dracula"
 
 " Buffergator
 let g:buffergator_suppress_keymaps = 1
