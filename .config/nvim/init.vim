@@ -40,7 +40,7 @@ set list listchars=tab:»·,trail:· " show extra space characters
 set nofoldenable                  " open all folds by default
 set foldmethod=syntax             " set fold method
 set nowrap                        " disable visible word wrap
-set background=dark               " set background color
+set background=light              " set background color
 set shortmess=I                   " disable startup message
 set ttyfast                       " enable fast terminal connection
 set lazyredraw                    " speed optimization
@@ -66,7 +66,7 @@ autocmd BufWritePre :set expandtab<CR> :retab<CR>
 
 syntax on
 syntax enable
-colorscheme palenight
+colorscheme papercolor
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -76,7 +76,7 @@ let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tmuxline#enabled = 0
 let g:airline#extensions#ale#enabled = 0
-let g:airline_theme="dracula"
+let g:airline_theme="papercolor"
 
 " Buffergator
 let g:buffergator_suppress_keymaps = 1
