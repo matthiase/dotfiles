@@ -14,10 +14,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'morhetz/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'seesleestak/duo-mini'
 Plug 'w0rp/ale'
+Plug 'plasticboy/vim-markdown'
 call plug#end()
 
 set termguicolors
@@ -38,9 +38,9 @@ set ruler                         " show row and column in footer
 set laststatus=2                  " always show status bar
 set list listchars=tab:»·,trail:· " show extra space characters
 set nofoldenable                  " open all folds by default
-set foldmethod=syntax             " set fold method
+set foldmethod=indent             " set fold method
 set nowrap                        " disable visible word wrap
-set background=light              " set background color
+set background=dark               " set background color
 set shortmess=I                   " disable startup message
 set ttyfast                       " enable fast terminal connection
 set lazyredraw                    " speed optimization
@@ -61,12 +61,13 @@ nnoremap <CR> :noh<CR><CR>
 nmap <space><space> :nohlsearch<CR>
 
 " Remove trailing whitespace and retab automatically on save
-autocmd BufWritePre * %s/\s\+$//e
-autocmd BufWritePre :set expandtab<CR> :retab<CR>
+" autocmd BufWritePre * %s/\s\+$//e
+" autocmd BufWritePre :set expandtab<CR> :retab<CR>
 
 syntax on
 syntax enable
-colorscheme papercolor
+colorscheme duo-mini
+
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -76,7 +77,7 @@ let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tmuxline#enabled = 0
 let g:airline#extensions#ale#enabled = 0
-let g:airline_theme="papercolor"
+let g:airline_theme="deus"
 
 " Buffergator
 let g:buffergator_suppress_keymaps = 1
@@ -116,6 +117,9 @@ nmap <leader>gs :Gstatus<cr>
 nmap <leader>gw :Gbrowse<cr>
 nmap <leader>g? :map <leader>g<cr>
 
+" Emmet
+let g:user_emmet_leader_key=','
+
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>
 nmap <Leader>r :NERDTreeFocus<cr> \| R \| <c-w><c-p> \| :CtrlPClearCache<cr>
@@ -130,17 +134,39 @@ let g:indentLine_color_term = 254
 let g:indentLine_char = '┆'
 
 " Ale linting
+let g:ale_fixers = {
+\   'javascript': ['prettier'],
+\   'vue': ['prettier'],
+\   'css': ['prettier'],
+\}
+let g:ale_linters_explicit = 1
+let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
+let g:ale_set_quickfix = 0
 let g:ale_open_list = 0
-let g:ale_keep_list_window_open = 1
+let g:ale_keep_list_window_open = 0
 
 " Mouse Support
 if has('mouse')
   set mouse=a
 endif
+
+" disable header folding
+let g:vim_markdown_folding_disabled = 1
+
+" do not use conceal feature, the implementation is not so good
+let g:vim_markdown_conceal = 0
+
+" disable math tex conceal feature
+let g:tex_conceal = ""
+let g:vim_markdown_math = 1
+
+" support front matter of various format
+let g:vim_markdown_frontmatter = 1  " for YAML format
+let g:vim_markdown_toml_frontmatter = 1  " for TOML format
+let g:vim_markdown_json_frontmatter = 1  " for JSON format
 
 " Reload files when changed
 set autoread
