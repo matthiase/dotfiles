@@ -10,50 +10,26 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
   exit
 fi
 
-xcode-select --version > /dev/null 2>&1
-if [[ $? != 0 ]] ; then
-  echo "Installing XCode Command Line Tools"
-  xcode-select --install
+packages="
+  build-essential
+  zsh
+  neovim
+  ack
+  git
+  tmux
+  tree
+"
+
+if ! dpkg -s $packages >/dev/null 2>&1; then
+  echo "Found uninstalled packages"
+  echo "Updating apt repositories"
+  sudo apt-get update -qq
 fi
 
-which -s brew > /dev/null 2>&1
-if [[ $? != 0 ]] ; then
-  echo "Installing Homebrew"
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-else
-  echo "Updating Homebrew"
-  brew update
-fi
-
-for formula in zsh \
-  readline \
-  openssl \
-  ncurses \
-  neovim \
-  ack \
-  git \
-  tmux \
-  tree \
-  ssh-copy-id ;
-do
-  echo "Checking formula '$formula'"
-  brew ls --versions $formula > /dev/null 2>&1
-  if [[ $? != 0 ]] ; then
-    brew install $formula
-  fi
-done
-
-brew tap caskroom/fonts > /dev/null 2>&1
-casks=("font-hack-nerd-font")
-if [ ! -d /Applications/iTerm.app ] ; then
-  casks+=(iterm2)
-fi
-
-for cask in "${casks[@]}" ; do
-  echo "Checking cask '$cask'"
-  brew cask ls --versions $cask > /dev/null 2>&1
-  if [[ $? != 0 ]] ; then
-    brew cask install $cask
+for package in $packages; do
+  if ! dpkg -s $package >/dev/null 2>&1; then
+    echo "Installing package '$package'"
+    sudo apt-get install -qq -y $package
   fi
 done
 
@@ -72,7 +48,7 @@ for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/!(README.md); do
     echo "Linking $dest"
     ln -s "$rcfile" "${ZDOTDIR:-$dest}"
   else
-    echo "Not linking '$dest' because file already exists."
+    echo "Not linking '$dest' because file already exists"
   fi
 done
 
@@ -82,9 +58,9 @@ fi
 
 rsync --exclude ".git/" \
   --exclude ".DS_Store" \
-  --exclude "init.sh" \
+  --exclude "macos.sh" \
+  --exclude "ubuntu.sh" \
   --exclude "README.md" \
   --exclude "LICENSE" \
   --exclude "colors" \
   -avh --no-perms . ~
-
