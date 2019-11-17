@@ -33,6 +33,32 @@ for package in $packages; do
   fi
 done
 
+nerdfonts="
+Hack/Bold/complete/Hack%20Bold%20Nerd%20Font%20Complete%20Mono.ttf
+Hack/BoldItalic/complete/Hack%20Bold%20Italic%20Nerd%20Font%20Complete%20Mono.ttf
+Hack/Italic/complete/Hack%20Italic%20Nerd%20Font%20Complete%20Mono.ttf
+Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete%20Mono.ttf
+Mononoki/Bold-Italic/complete/mononoki%20Bold%20Italic%20Nerd%20Font%20Complete%20Mono.ttf
+Mononoki/Bold/complete/mononoki%20Bold%20Nerd%20Font%20Complete%20Mono.ttf
+Mononoki/Italic/complete/mononoki%20Italic%20Nerd%20Font%20Complete%20Mono.ttf
+Mononoki/Regular/complete/mononoki-Regular%20Nerd%20Font%20Complete%20Mono.ttf
+UbuntuMono/Bold-Italic/complete/Ubuntu%20Mono%20Bold%20Italic%20Nerd%20Font%20Complete%20Mono.ttf
+UbuntuMono/Bold/complete/Ubuntu%20Mono%20Bold%20Nerd%20Font%20Complete%20Mono.ttf
+UbuntuMono/Regular-Italic/complete/Ubuntu%20Mono%20Italic%20Nerd%20Font%20Complete%20Mono.ttf
+UbuntuMono/Regular/complete/Ubuntu%20Mono%20Nerd%20Font%20Complete%20Mono.ttf
+"
+for nerdfont in $nerdfonts; do
+  localfont=$(basename $nerdfont | sed -e "s/%20/-/g")
+  if [ ! -e $HOME/.local/share/fonts/$localfont ]; then
+    echo "Installing font $localfont"
+    curl -fLo $HOME/.local/share/fonts/$localfont --create-dirs \
+      https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/$nerdfont
+  fi
+done
+
+fc-cache -vf $HOME/.local/share/fonts
+
+
 if [ ! -e $HOME/.local/share/nvim/site/autoload/plug.vim ]; then
   curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
