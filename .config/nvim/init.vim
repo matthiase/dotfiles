@@ -12,12 +12,10 @@ Plug 'sheerun/vim-polyglot'
 Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'seesleestak/duo-mini'
 Plug 'w0rp/ale'
 Plug 'plasticboy/vim-markdown'
+Plug 'itchyny/lightline.vim'
+Plug 'jacoborus/tender.vim'
 call plug#end()
 
 set termguicolors
@@ -66,18 +64,18 @@ nmap <space><space> :nohlsearch<CR>
 
 syntax on
 syntax enable
-colorscheme duo-mini
+colorscheme tender
 
-
-" Airline
-let g:airline_powerline_fonts = 1
-let g:airline_powerline_section_b = '%strftime("%c")}'
-let g:airline#extensions#tabline#enabled = 0
-let g:airline#extensions#tabline#formatter = 'default'
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tmuxline#enabled = 0
-let g:airline#extensions#ale#enabled = 0
-let g:airline_theme="deus"
+let g:lightline = {
+      \ 'colorscheme': 'tenderplus',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
 
 " Buffergator
 let g:buffergator_suppress_keymaps = 1
@@ -95,12 +93,12 @@ nmap <leader>kk :BuffergatorMruCycleNext<cr>
 
 " CtrlP
 let g:ctrlp_user_command = {
-            \ 'types': {
-            \ 1: ['.git', 'cd %s && git ls-files --exclude-standard --others --cached'],
-            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-            \ },
-            \ 'fallback': 'find %s -type f'
-            \ }
+      \ 'types': {
+      \ 1: ['.git', 'cd %s && git ls-files --exclude-standard --others --cached'],
+      \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+      \ },
+      \ 'fallback': 'find %s -type f'
+      \ }
 
 " Use nearest .git dir
 let g:ctrlp_working_path_mode = 'ra'
