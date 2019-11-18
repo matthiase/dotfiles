@@ -16,6 +16,8 @@ Plug 'w0rp/ale'
 Plug 'plasticboy/vim-markdown'
 Plug 'itchyny/lightline.vim'
 Plug 'jacoborus/tender.vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'seesleestak/duo-mini'
 call plug#end()
 
 set termguicolors
