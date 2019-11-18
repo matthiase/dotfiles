@@ -13,7 +13,10 @@ Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
 Plug 'w0rp/ale'
+Plug 'godlygeek/tabular'
+Plug 'elzr/vim-json'
 Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 Plug 'itchyny/lightline.vim'
 Plug 'jacoborus/tender.vim'
 Plug 'NLKNguyen/papercolor-theme'
@@ -78,6 +81,15 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#head'
       \ },
       \ }
+
+" Markdown
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal = 0
+let g:tex_conceal = ""
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_json_frontmatter = 1
 
 " Buffergator
 let g:buffergator_suppress_keymaps = 1
@@ -198,3 +210,4 @@ endfun
 nmap <leader>sc :set number!<CR>:call ToggleSignColumn()<CR>
 
 filetype plugin on
+au FileType markdown set conceallevel=0
