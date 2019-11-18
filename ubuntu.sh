@@ -18,6 +18,7 @@ packages="
   git
   tmux
   tree
+  docker.io
 "
 
 if ! dpkg -s $packages >/dev/null 2>&1; then
@@ -32,6 +33,17 @@ for package in $packages; do
     sudo apt-get install -qq -y $package
   fi
 done
+
+if [ ! -e /usr/local/bin/docker-compose ]; then
+  sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" \
+    -o /usr/local/bin/docker-compose
+  sudo chmod +x /usr/local/bin/docker-compose
+fi
+
+if ! getent group docker | grep &>/dev/null "\b${USER}\b"; then
+  sudo gpasswd -a $USER docker
+  newgrp docker
+fi
 
 nerdfonts="
 Hack/Bold/complete/Hack%20Bold%20Nerd%20Font%20Complete.ttf
@@ -48,8 +60,7 @@ for nerdfont in $nerdfonts; do
   fi
 done
 
-fc-cache -vf $HOME/.local/share/fonts
-
+fc-cache -f $HOME/.local/share/fonts
 
 if [ ! -e $HOME/.local/share/nvim/site/autoload/plug.vim ]; then
   curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
