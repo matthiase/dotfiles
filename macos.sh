@@ -19,7 +19,8 @@ fi
 which -s brew > /dev/null 2>&1
 if [[ $? != 0 ]] ; then
   echo "Installing Homebrew"
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  #ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 else
   echo "Updating Homebrew"
   brew update
@@ -32,6 +33,7 @@ for formula in zsh \
   neovim \
   ack \
   git \
+  iterm2 \
   tmux \
   tree \
   ssh-copy-id ;
@@ -43,19 +45,19 @@ do
   fi
 done
 
-brew tap caskroom/fonts > /dev/null 2>&1
-casks=("font-hack-nerd-font")
-if [ ! -d /Applications/iTerm.app ] ; then
-  casks+=(iterm2)
-fi
-
-for cask in "${casks[@]}" ; do
-  echo "Checking cask '$cask'"
-  brew cask ls --versions $cask > /dev/null 2>&1
-  if [[ $? != 0 ]] ; then
-    brew cask install $cask
-  fi
-done
+#brew tap caskroom/fonts > /dev/null 2>&1
+#casks=("font-hack-nerd-font")
+#if [ ! -d /Applications/iTerm.app ] ; then
+#  casks+=(iterm2)
+#fi
+#
+#for cask in "${casks[@]}" ; do
+#  echo "Checking cask '$cask'"
+#  brew cask ls --versions $cask > /dev/null 2>&1
+#  if [[ $? != 0 ]] ; then
+#    brew cask install $cask
+#  fi
+#done
 
 if [ ! -e $HOME/.local/share/nvim/site/autoload/plug.vim ]; then
   curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
