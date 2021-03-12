@@ -17,9 +17,9 @@ Plug 'elzr/vim-json'
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 Plug 'itchyny/lightline.vim'
-Plug 'jacoborus/tender.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'seesleestak/duo-mini'
+Plug 'dracula/vim'
 call plug#end()
 
 set termguicolors
