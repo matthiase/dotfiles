@@ -68,10 +68,10 @@ nmap <space><space> :nohlsearch<CR>
 
 syntax on
 syntax enable
-colorscheme tender
+colorscheme Dracula
 
 let g:lightline = {
-      \ 'colorscheme': 'tenderplus',
+      \ 'colorscheme': 'dracula',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
